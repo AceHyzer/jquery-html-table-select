@@ -27,3 +27,6 @@ HtmlTableSelect.setupTableForSelection(
 );
 
 ```
+
+###Styles
+To include the correct styles, reference the jquery-html-table-select css file included or add the .html-table-select-highlighted and .cursor-pointer classes into your own css file.
