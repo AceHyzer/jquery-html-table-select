@@ -11,6 +11,8 @@ onSelect: callback function that binds to click event or enter.
 
 focusFirstRow: boolean, defaults to false, if set to true the first row will autoselect as soon as the table is passed into the selector for setup.
 
+numPadNavigation: boolean, defaults to false, if set to true you can use the number pad 8 and 2 keys to navigate up and down.
+
 ```javascript
 
 import HtmlTableSelect from 'jquery-html-table-select'
@@ -22,7 +24,8 @@ HtmlTableSelect.setupTableForSelection(
                 console.log(element);
                 console.log("selected: " + index);
             },
-            focusFirstRow: true
+            focusFirstRow: true,
+            numPadNavigation: true
     }
 );
 
