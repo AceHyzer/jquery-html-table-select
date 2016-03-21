@@ -13,6 +13,10 @@ const focusFirstRow = () => {
     elements.$rows.eq(0).focus();
 }
 
+const getRowSelectedIndex = () => {
+    return rowSelectedIndex;
+}
+
 let rowSelectedIndex = 0; //default 0 to show top row.
 
 const selectRow = (index) => {
@@ -54,6 +58,27 @@ const setupKeyEvents = () => {
     });
 }
 
+const setupNumPadKeyEvents = () => {
+    elements.$table.keydown((e) => {
+        switch (e.which) {
+            case 104: //numpad 8 (up)
+                if (rowSelectedIndex > 0) {
+                    elements.$rows.eq(rowSelectedIndex - 1).focus();
+                }
+                break;
+            
+            case 98: //numpad 2 (down)
+                if (rowSelectedIndex < elements.$rows.length - 1) {
+                    elements.$rows.eq(rowSelectedIndex + 1).focus();
+                }
+                break;
+            
+            default: return; // exit this handler for other keys
+        }
+        e.preventDefault();
+    })
+}
+
 const setupOnClickEvent = (callback) => {
     elements.$rows.click(function (e) {
         callback(this, rowSelectedIndex);
@@ -86,10 +111,13 @@ const setupTableForSelection = ($tableElement, options = {}) => {
     if(options.focusFirstRow) {
         focusFirstRow();
     }
+    if(options.numPadNavigation) {
+        setupNumPadKeyEvents();
+    }
     
     return {
-        rowSelectedIndex,
-        setRowIndex,
+        getRowSelectedIndex,
+        selectRow,
     }
 }
 
