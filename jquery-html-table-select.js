@@ -103,16 +103,22 @@ const setupTableForSelection = ($tableElement, options = {}) => {
     elements.$rows.attr("tabindex", "0");
     elements.$rows.addClass('cursor-pointer');
     
+    elements.$rows.off('focus'); //detach focus event in case it has already been set.
     setupOnFocusEvent();
+    
+    elements.$table.off('keydown'); //detach keydown event in case it has already been set.
     setupKeyEvents();
-    if(typeof(options.onSelect) === "function"){
-        setupOnClickEvent(options.onSelect);
-    }
-    if(options.focusFirstRow) {
-        focusFirstRow();
-    }
     if(options.numPadNavigation) {
         setupNumPadKeyEvents();
+    }
+    
+    if(typeof(options.onSelect) === "function"){
+        elements.$rows.off('click'); //detach click event in case it has already been set.
+        setupOnClickEvent(options.onSelect);
+    }
+    
+    if(options.focusFirstRow) {
+        focusFirstRow();
     }
     
     return {
